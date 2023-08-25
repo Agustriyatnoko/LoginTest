@@ -1,0 +1,48 @@
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+
+import org.junit.After;
+import org.junit.Before;
+
+import java.lang.Thread;
+
+import static org.junit.Assert.assertEquals;
+
+public class Test {
+    private WebDriver driver;
+    @Before
+    public void setup(){
+        //Start chrome web browser
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        //Maximize browser window
+        driver.manage().window().maximize();
+    }
+    @org.junit.Test
+    public void wbe(){
+        //enter url into browser
+        driver.get("http://the-internet.herokuapp.com/login");
+        //driver.get("https://www.alberta.ca/release.cfm?xID=873891E40AD5C-E244-D327-1405948843663AF8");
+        //Find element by ID
+        driver.findElement(By.id("Button1")).isEnabled();
+        driver.findElement(By.id("Button1")).click();
+        driver.switchTo().alert().accept();
+
+        // Enter text in text box
+        driver.findElement(By.className("username")).clear();
+        driver.findElement(By.className("username")).sendKeys("tomsmith");
+
+        //Enter test in text area
+        driver.findElement(By.name("password")).clear();
+        driver.findElement(By.name("password")).sendKeys("SuperSecretPassword!");
+
+    }
+    @After
+    public void teardown(){
+        //Close browser
+        //driver.quit();
+    }
+}
